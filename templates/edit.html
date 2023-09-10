@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KPIT Technologies</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .header {
+            background-color: #333;
+            color: #7CFC00;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .edit-employee-form {
+            width: 50%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .edit-employee-form input[type="text"] {
+            background-color: #fff;
+            color: #333;
+            width: 45%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+        }
+        .add-button {
+            margin-top: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .add-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>KPIT Technologies</h1>
+    </div>
+
+    <div class="container">
+        <div class="edit-employee-form">
+            <form method="POST" action="/save_employee/{{ employee['id'] }}" onsubmit="return validateForm()">
+                <div>
+                    <div class="error-message" id="name-error"></div>
+                    <input type="text" id="name" name="name" placeholder="Name" value="{{ employee['name'] }}"><br>
+                </div>
+                <div>
+                    <div class="error-message" id="emp-id-error"></div>
+                    <input type="text" id="emp_id" name="emp_id" placeholder="Employee ID" value="{{ employee['emp_id'] }}"><br>
+                </div>
+                <input type="submit" value="Save" class="add-button">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var nameInput = document.getElementById("name");
+            var empIdInput = document.getElementById("emp_id");
+            var nameErrorDiv = document.getElementById("name-error");
+            var empIdErrorDiv = document.getElementById("emp-id-error");
+            var valid = true;
+
+            nameErrorDiv.innerHTML = "";
+            empIdErrorDiv.innerHTML = "";
+
+            if (!nameInput.value.match(/^[A-Za-z\s]+$/)) {
+                nameErrorDiv.innerHTML = "Error: Name should only contain alphabetic characters and spaces.";
+                valid = false;
+            }
+
+            if (!empIdInput.value.match(/^\d+$/)) {
+                empIdErrorDiv.innerHTML = "Error: Employee ID should only contain numeric characters.";
+                valid = false;
+            }
+
+            return valid;
+        }
+    </script>
+</body>
+</html>
