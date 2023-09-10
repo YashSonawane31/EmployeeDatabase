@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KPIT Technologies</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .header {
+            background-color: #333;
+            color: #7CFC00;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            padding: 20px;
+        }
+        .employee-list {
+            width: 80%;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: center;
+            user-select: none;
+            padding: 10px;
+        }
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #ddd;
+        }
+        .add-employee-form {
+            width: 80%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .add-employee-form input[type="text"] {
+            background-color: #fff;
+            color: #333;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .add-employee-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-employee-button:hover {
+            background-color: #555;
+        }
+        .edit-button {
+            background-color: inherit;
+            color: #333;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .edit-button:hover {
+            text-decoration: none;
+        }
+        .table-header {
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .error-message {
+            color: red;
+        }
+        .employee-list a[href^="/delete_employee"] {
+            color: #333;
+            text-decoration: underline;
+        }
+
+        .employee-list a[href^="/delete_employee"]:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>KPIT Technologies</h1>
+    </div>
+
+    <div class="container">
+        <h2 class="table-header">Employee Records</h2>
+        <div class="error-message" id="name-error"></div>
+        <div class="add-employee-form">
+            <form method="POST" action="/add_employee" onsubmit="return validateForm()">
+                <input type="text" id="name" name="name" placeholder="Name"><br>
+                <div class="error-message" id="emp-id-error"></div>
+                <input type="text" id="emp_id" name="emp_id" placeholder="Employee ID"><br>
+                <input type="submit" value="Add Employee" class="add-employee-button">
+            </form>
+        </div>
+
+        <div class="employee-list">
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Employee ID</th>
+                    <th>Action</th>
+                </tr>
+                {% for employee in employees %}
+                <tr>
+                    <td>{{ employee['id'] }}</td>
+                    <td class="editable-field" data-field="name" data-id="{{ employee['id'] }}">{{ employee['name'] }}</td>
+                    <td class="editable-field" data-field="emp_id" data-id="{{ employee['id'] }}">{{ employee['emp_id'] }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_employee', id=employee['id']) }}" class="delete-button">Delete</a>
+                        <a href="{{ url_for('edit_employee', id=employee['id']) }}" class="edit-button">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var nameInput = document.getElementById("name");
+            var empIdInput = document.getElementById("emp_id");
+            var nameErrorDiv = document.getElementById("name-error");
+            var empIdErrorDiv = document.getElementById("emp-id-error");
+            var valid = true;
+
+            nameErrorDiv.innerHTML = "";
+            empIdErrorDiv.innerHTML = "";
+
+            if (!nameInput.value.match(/^[A-Za-z\s]+$/)) {
+                nameErrorDiv.innerHTML = "Error: Name should only contain alphabetic characters and spaces.";
+                valid = false;
+            }
+
+            if (!empIdInput.value.match(/^\d+$/)) {
+                empIdErrorDiv.innerHTML = "Error: Employee ID should only contain numeric characters.";
+                valid = false;
+            }
+
+            return valid;
+        }
+    </script>
+</body>
+</html>
