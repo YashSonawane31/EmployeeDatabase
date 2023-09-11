@@ -6,10 +6,10 @@ import uuid
 
 app = Flask(__name__)
 
-hostname = 'localhost'
-database = 'Demo'
-username = 'postgres'
-pwd = 'World&147'
+AZURE_POSTGRESQL_HOST=postgres-flaskdb.postgres.database.azure.com
+AZURE_POSTGRESQL_DATABASE=employee_database
+AZURE_POSTGRESQL_USERNAME=demoadmin
+AZURE_POSTGRESQL_PASSWORD=World&147
 port_id = 5432
 
 def get_db_connection():
@@ -21,7 +21,7 @@ def get_db_connection():
         port=port_id
     )
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
