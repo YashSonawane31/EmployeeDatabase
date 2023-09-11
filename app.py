@@ -6,13 +6,14 @@ import uuid
 
 app = Flask(__name__)
 
-AZURE_POSTGRESQL_HOST=postgres-flaskdb.postgres.database.azure.com
-AZURE_POSTGRESQL_DATABASE=employee_database
-AZURE_POSTGRESQL_USERNAME=demoadmin
-AZURE_POSTGRESQL_PASSWORD=World&147
-port_id = 5432
-conn = None
-cur = None
+if not 'RUNNING_IN_PRODUCTION' in os.environ:
+   # Local development, where we'll use environment variables.
+   print("Loading config.development and environment variables from .env file.")
+   app.config.from_object('azureproject.development')
+else:
+   # Production, we don't load environment variables from .env file but add them as environment variables in Azure.
+   print("Loading config.production.")
+   app.config.from_object('azureproject.production')
 
 def get_db_connection():
     return psycopg2.connect(
