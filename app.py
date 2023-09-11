@@ -5,10 +5,10 @@ import webbrowser
 
 app = Flask(__name__)
 
-hostname = os.environ.get('AZURE_POSTGRESQL_HOST')
-database = os.environ.get('AZURE_POSTGRESQL_DATABASE')
-username = os.environ.get('AZURE_POSTGRESQL_USERNAME')
-pwd = os.environ.get('AZURE_POSTGRESQL_PASSWORD')
+hostname = postgres-flask-db.postgres.database.azure.com
+database = employee_records
+username = demoadmin
+pwd = World&147
 port_id = 5432
 conn = None
 cur = None
