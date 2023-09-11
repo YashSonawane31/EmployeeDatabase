@@ -1,15 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import psycopg2.extras
-import webbrowser
+import os
 
 app = Flask(__name__)
 
-hostname = 'localhost'
-database = 'Demo'
-username = 'postgres'
-pwd = 'World&147'
-port_id = 5432
+hostname = os.environ.get('AZURE_POSTGRESQL_HOST')
+database = os.environ.get('AZURE_POSTGRESQL_DATABASE')
+username = os.environ.get('AZURE_POSTGRESQL_USERNAME')
+pwd = os.environ.get('AZURE_POSTGRESQL_PASSWORD')
+port_id = int(os.environ.get('DB_PORT')
 
 def get_db_connection():
     return psycopg2.connect(
