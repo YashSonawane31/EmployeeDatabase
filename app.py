@@ -5,10 +5,10 @@ import webbrowser
 
 app = Flask(__name__)
 
-hostname = postgres-flask-db.postgres.database.azure.com
-database = employee_records
-username = demoadmin
-pwd = World&147
+hostname = 'postgres-flask-db.postgres.database.azure.com'
+database = 'employee_records'
+username = 'demoadmin'
+pwd = 'World&147'
 port_id = 5432
 conn = None
 cur = None
