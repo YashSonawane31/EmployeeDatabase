@@ -1,37 +1,25 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_wtf.csrf import CSRFProtect
-from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for
+import psycopg2
+import psycopg2.extras
 import os
 import uuid
 
-from requests import RequestException
+app = Flask(__name__)
 
-app = Flask(__name__, static_folder='static')
-csrf = CSRFProtect(app)
+hostname = 'localhost'
+database = 'Demo'
+username = 'postgres'
+pwd = 'World&147'
+port_id = 5432
 
-# If RUNNING_IN_PRODUCTION is defined as an environment variable, then we're running on Azure
-if not 'RUNNING_IN_PRODUCTION' in os.environ:
-   # Local development, where we'll use environment variables.
-   print("Loading config.development and environment variables from .env file.")
-   app.config.from_object('azureproject.development')
-else:
-   # Production, we don't load environment variables from .env file but add them as environment variables in Azure.
-   print("Loading config.production.")
-   app.config.from_object('azureproject.production')
-
-with app.app_context():
-    app.config.update(
-        SQLALCHEMY_DATABASE_URI=app.config.get('DATABASE_URI'),
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+def get_db_connection():
+    return psycopg2.connect(
+        host=hostname,
+        dbname=database,
+        user=username,
+        password=pwd,
+        port=port_id
     )
-
-# Initialize the database connection
-db = SQLAlchemy(app)
-
-# Enable Flask-Migrate commands "flask db init/migrate/upgrade" to work
-migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
@@ -90,4 +78,5 @@ def delete_employee(id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    webbrowser.open('http://localhost:5000')
     app.run()
