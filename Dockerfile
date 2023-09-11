@@ -1,5 +1,5 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.8-slim
+FROM python:3.11
 
 EXPOSE 5000
 
@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED=1
 
 # Install pip requirements
 COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 WORKDIR /app
 COPY . /app
