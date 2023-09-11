@@ -1,31 +1,10 @@
-version: '3'
+version: '3.4'
+
 services:
-  web:
+  pythoncontainer:
+    image: pythoncontainer
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     ports:
       - "5000:5000"
-    depends_on:
-      - postgres
-    environment:
-      FLASK_APP: app.py
-      FLASK_ENV: development
-      DATABASE_URL: postgres://demoadmin:World&147@postgres:5432/employee_records
-    networks:
-      - app-network
-
-  postgres:
-    image: postgres:latest
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_DB: employee_records
-      POSTGRES_USER: demoadmin
-      POSTGRES_PASSWORD: World&147
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
