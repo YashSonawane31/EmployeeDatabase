@@ -1,19 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import psycopg2.extras
-import os
-import uuid
+import webbrowser
 
 app = Flask(__name__)
 
-if not 'RUNNING_IN_PRODUCTION' in os.environ:
-   # Local development, where we'll use environment variables.
-   print("Loading config.development and environment variables from .env file.")
-   app.config.from_object('azureproject.development')
-else:
-   # Production, we don't load environment variables from .env file but add them as environment variables in Azure.
-   print("Loading config.production.")
-   app.config.from_object('azureproject.production')
+hostname = 'localhost'
+database = 'Demo'
+username = 'postgres'
+pwd = 'World&147'
+port_id = 5432
 
 def get_db_connection():
     return psycopg2.connect(
@@ -24,36 +20,7 @@ def get_db_connection():
         port=port_id
     )
 
-try:
-    conn = psycopg2.connect(
-                host = hostname,
-                dbname = database,
-                user = username,
-                password = pwd,
-                port = port_id)
-
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
-    cur.execute('DROP TABLE IF EXISTS employee')
-
-    create_script = ''' CREATE TABLE IF NOT EXISTS employee(
-                            id     int PRIMARY KEY,
-                            name   varchar(40) NOT NULL,
-                            emp_id int) '''
-    
-    cur.execute(create_script)
-    conn.commit()
-
-except Exception as error:
-    print(error)
-
-finally:
-    if cur is not None:
-        cur.close()
-    if conn is not None:
-        conn.close()
-
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
