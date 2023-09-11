@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import psycopg2.extras
-import os
+import webbrowser
 
 app = Flask(__name__)
 
@@ -9,7 +9,38 @@ hostname = os.environ.get('AZURE_POSTGRESQL_HOST')
 database = os.environ.get('AZURE_POSTGRESQL_DATABASE')
 username = os.environ.get('AZURE_POSTGRESQL_USERNAME')
 pwd = os.environ.get('AZURE_POSTGRESQL_PASSWORD')
-port_id = int(os.environ.get('DB_PORT')
+port_id = 5432
+conn = None
+cur = None
+
+try:
+    conn = psycopg2.connect(
+                host = hostname,
+                dbname = database,
+                user = username,
+                password = pwd,
+                port = port_id)
+
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+    cur.execute('DROP TABLE IF EXISTS employee')
+
+    create_script = ''' CREATE TABLE IF NOT EXISTS employee(
+                            id     int PRIMARY KEY,
+                            name   varchar(40) NOT NULL,
+                            emp_id int) '''
+    
+    cur.execute(create_script)
+    conn.commit()
+
+except Exception as error:
+    print(error)
+
+finally:
+    if cur is not None:
+        cur.close()
+    if conn is not None:
+        conn.close()
 
 def get_db_connection():
     return psycopg2.connect(
@@ -17,8 +48,7 @@ def get_db_connection():
         dbname=database,
         user=username,
         password=pwd,
-        port=port_id
-    )
+        port=port_id)
 
 @app.route('/')
 def index():
@@ -77,5 +107,6 @@ def delete_employee(id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    webbrowser.open('http://localhost:5000')
     app.run()
+
+    
