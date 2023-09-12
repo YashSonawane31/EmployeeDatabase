@@ -2,13 +2,8 @@ version: '3'
 services: 
   postgres:
     image: postgres
-    restart: on-failure
     build:
       context: .
       dockerfile: ./Dockerfile
-    environment:
-       - POSTGRES_USER=demodomain
-       - POSTGRES_PASSWORD=World&147
-       - POSTGRES_DB=postgres
     ports:
        - "5000:5000"
