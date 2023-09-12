@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import psycopg2.extras
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 hostname = 'postgres-flask-db.postgres.database.azure.com'
 database = 'postgres'
