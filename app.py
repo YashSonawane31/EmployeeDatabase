@@ -20,9 +20,9 @@ try:
                 password = POSTGRES_PASSWORD,
                 port = port_id)
 
-#    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-    cur.execute('DROP TABLE IF EXISTS employee')
+#    cur.execute('DROP TABLE IF EXISTS employee')
 
     create_script = ''' CREATE TABLE IF NOT EXISTS employee(
                             id     int PRIMARY KEY,
