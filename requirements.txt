@@ -1,9 +1,11 @@
+Click
 Flask
-Flask-Migrate
-Flask-SQLAlchemy
-Flask-WTF
 requests
+psycopg2
 psycopg2-binary
 python-dotenv
-SQLAlchemy
 gunicorn
+itsdangerous
+Jinja2
+MarkupSafe
+Werkzeug
