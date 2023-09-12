@@ -17,7 +17,7 @@ EXPOSE 5000
 # Define environment variables for PostgreSQL
 ENV POSTGRES_HOST=postgres-flask-db.postgres.database.azure.com
 ENV POSTGRES_PORT=5432
-ENV POSTGRES_DB=employee_records
+ENV POSTGRES_DB=postgres
 ENV POSTGRES_USER=demodomain
 ENV POSTGRES_PASSWORD=World&147
 
