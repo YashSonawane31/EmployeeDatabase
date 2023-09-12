@@ -3,12 +3,12 @@ services:
   postgres:
     image: postgres
     restart: on-failure
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     environment:
        - POSTGRES_USER=demodomain
        - POSTGRES_PASSWORD=World&147
-       - PGDATA=/var/lib/postgresql/data/pgdata
        - POSTGRES_DB=postgres
-    volumes:
-       - ./postgres_data:/var/lib/postgresql
     ports:
-       - 5432:5432
+       - "5432:5432"
