@@ -1,5 +1,5 @@
 # Use the official Python image as a parent image
-FROM python:3.8-slim
+FROM python:3.11
 
 # Set the working directory in the container
 WORKDIR /app
@@ -21,5 +21,8 @@ ENV POSTGRES_DB=postgres
 ENV POSTGRES_USER=demodomain
 ENV POSTGRES_PASSWORD=World&147
 
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
+
 # Start the Flask application
-CMD ["python", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
