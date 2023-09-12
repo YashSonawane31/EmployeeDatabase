@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
 import psycopg2.extras
-import webbrowser
 
 app = Flask(__name__)
 
