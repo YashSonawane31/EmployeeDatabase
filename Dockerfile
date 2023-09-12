@@ -21,8 +21,5 @@ ENV POSTGRES_DB=postgres
 ENV POSTGRES_USER=demodomain
 ENV POSTGRES_PASSWORD=World&147
 
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
-
 # Start the Flask application
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "python", "app.py"]
+CMD ["python", "app.py"]
