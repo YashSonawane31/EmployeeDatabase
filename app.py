@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 hostname = 'postgres-flask-db.postgres.database.azure.com'
 database = 'employee_records'
-username = 'demoadmin'
+username = 'demodomain'
 pwd = 'World&147'
 port_id = 5432
 conn = None
