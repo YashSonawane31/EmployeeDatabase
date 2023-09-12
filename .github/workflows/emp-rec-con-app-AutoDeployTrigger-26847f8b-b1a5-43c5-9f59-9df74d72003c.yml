@@ -9,6 +9,12 @@ on:
     paths:
     - '//**'
     - '.github/workflows/emp-rec-con-app-AutoDeployTrigger-26847f8b-b1a5-43c5-9f59-9df74d72003c.yml'
+    - 'templates/edit.html'
+    - 'templates/index.html'
+    - 'Dockerfile'
+    - 'app.py'
+    - 'docker-compose.yml'
+    - 'requirements.txt'
 
   # Allow manual trigger 
   workflow_dispatch:      
