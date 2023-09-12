@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+  db:
+    image: pythoncontainer:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: demodomain
+      POSTGRES_PASSWORD: World&147
+    ports:
+      - "5432:5432"
