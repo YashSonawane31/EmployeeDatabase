@@ -3,7 +3,6 @@ Flask
 requests
 psycopg2
 psycopg2-binary
-psycopg2.extras
 python-dotenv
 gunicorn
 itsdangerous
