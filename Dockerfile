@@ -25,4 +25,4 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 # Start the Flask application
-CMD ["gunicorn", "python", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "python", "app.py"]
