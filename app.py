@@ -26,7 +26,7 @@ try:
                             id     int PRIMARY KEY,
                             name   varchar(40) NOT NULL,
                             emp_id int) '''
-    
+
     cur.execute(create_script)
     conn.commit()
 
@@ -90,7 +90,6 @@ def save_employee(id):
         cur.execute('UPDATE employee SET name = %s, emp_id = %s WHERE id = %s', (name, emp_id, id))
         conn.commit()
         conn.close()
-
     return redirect(url_for('index'))
 
 @app.route('/delete_employee/<int:id>')
