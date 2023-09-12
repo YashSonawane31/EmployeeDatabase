@@ -22,4 +22,4 @@ ENV POSTGRES_USER=demodomain
 ENV POSTGRES_PASSWORD=World&147
 
 # Start the Flask application
-CMD ["python", "app.py"]
+CMD ["python", "gunicorn", "--bind", "0.0.0.0:5000", "app.py"]
