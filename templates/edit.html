@@ -90,12 +90,12 @@
             empIdErrorDiv.innerHTML = "";
 
             if (!nameInput.value.match(/^[A-Za-z\s]+$/)) {
-                nameErrorDiv.innerHTML = "Error: Name should only contain alphabetic characters.";
+                nameErrorDiv.innerHTML = "Name should only contain alphabetic characters.";
                 valid = false;
             }
 
             if (!empIdInput.value.match(/^\d+$/)) {
-                empIdErrorDiv.innerHTML = "Error: Employee ID should only contain numeric characters.";
+                empIdErrorDiv.innerHTML = "Employee ID should only contain numeric characters.";
                 valid = false;
             }
 
