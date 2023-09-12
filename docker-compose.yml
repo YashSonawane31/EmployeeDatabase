@@ -1,10 +1,17 @@
-version: '3.4'
-
+version: '3'
 services:
-  pythoncontainer:
-    image: pythoncontainer
+  web:
     build:
       context: .
-      dockerfile: ./Dockerfile
     ports:
       - "5000:5000"
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: demodomain
+      POSTGRES_PASSWORD: World&147
+    ports:
+      - "5432:5432"
