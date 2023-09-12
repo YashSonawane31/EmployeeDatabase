@@ -5,7 +5,7 @@ import psycopg2.extras
 app = Flask(__name__, static_folder='static')
 
 hostname = 'postgres-flask-db.postgres.database.azure.com'
-database = 'postgres'
+database = 'employee_records'
 username = 'demodomain'
 pwd = 'World&147'
 port_id = 5432
