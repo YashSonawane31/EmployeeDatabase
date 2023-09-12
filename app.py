@@ -4,20 +4,20 @@ import psycopg2.extras
 
 app = Flask(__name__, static_folder='static')
 
-hostname = 'postgres-flask-db.postgres.database.azure.com'
-database = 'postgres'
-username = 'demodomain'
-pwd = 'World&147'
+POSTGRES_HOST = 'postgres-flask-db.postgres.database.azure.com'
+POSTGRES_DB = 'postgres'
+POSTGRES_USER = 'demodomain'
+POSTGRES_PASSWORD = 'World&147'
 port_id = 5432
 conn = None
 cur = None
 
 try:
     conn = psycopg2.connect(
-                host = hostname,
-                dbname = database,
-                user = username,
-                password = pwd,
+                host = POSTGRES_HOST,
+                dbname = POSTGRES_DB,
+                user = POSTGRES_USER,
+                password = POSTGRES_PASSWORD,
                 port = port_id)
 
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -43,10 +43,10 @@ finally:
 
 def get_db_connection():
     return psycopg2.connect(
-        host=hostname,
-        dbname=database,
-        user=username,
-        password=pwd,
+        host=POSTGRES_HOST,
+        dbname=POSTGRES_DB,
+        user=POSTGRES_USER,
+        password=POSTGRES_PASSWORD,
         port=port_id)
 
 @app.route('/')
