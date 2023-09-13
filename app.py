@@ -1,14 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for
-import psycopg2
 import psycopg2.extras
+import psycopg2
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__)
 
 POSTGRES_HOST = 'postgres-flask-db.postgres.database.azure.com'
 POSTGRES_DB = 'postgres'
 POSTGRES_USER = 'demodomain'
 POSTGRES_PASSWORD = 'World&147'
-port_id = 5432
+POSTGRES_PORT = 5432
 conn = None
 cur = None
 
@@ -18,14 +18,14 @@ try:
                 dbname = POSTGRES_DB,
                 user = POSTGRES_USER,
                 password = POSTGRES_PASSWORD,
-                port = port_id)
+                port = POSTGRES_PORT)
 
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
     create_script = ''' CREATE TABLE IF NOT EXISTS employee(
                             id     int PRIMARY KEY,
-                            name   varchar(40) NOT NULL,
-                            emp_id int) '''
+                            name   varchar(80) NOT NULL,
+                            emp_id int NOT NULL) '''
 
     cur.execute(create_script)
     conn.commit()
@@ -45,7 +45,7 @@ def get_db_connection():
         dbname=POSTGRES_DB,
         user=POSTGRES_USER,
         password=POSTGRES_PASSWORD,
-        port=port_id)
+        port=POSTGRES_PORT)
 
 @app.route('/')
 def index():
