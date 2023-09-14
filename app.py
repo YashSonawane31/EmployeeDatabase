@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 environment = os.environ.get('FLASK_ENV', default='development')
 
-if 'AZURE_PRODUCTION' in os.environ:
-    environment = 'production'
+#if 'AZURE_PRODUCTION' in os.environ:
+#    environment = 'production'
 
 if environment == 'development':
     POSTGRES_HOST = 'localhost'
