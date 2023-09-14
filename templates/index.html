@@ -7,7 +7,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #ffffff;
             color: #333;
         }
         .header {
@@ -90,6 +90,8 @@
         }
         .error-message {
             color: red;
+            text-align: left;
+            margin-bottom: 10px;
         }
         .employee-list a[href^="/delete_employee"] {
             color: #333;
@@ -108,12 +110,12 @@
 
     <div class="container">
         <h2 class="table-header">Employee Records</h2>
-        <div class="error-message" id="name-error"></div>
         <div class="add-employee-form">
             <form method="POST" action="/add_employee" onsubmit="return validateForm()">
                 <input type="text" id="name" name="name" placeholder="Name"><br>
-                <div class="error-message" id="emp-id-error"></div>
+                <div class="error-message" id="name-error"></div>
                 <input type="text" id="emp_id" name="emp_id" placeholder="Employee ID"><br>
+                <div class="error-message" id="emp-id-error"></div>
                 <input type="submit" value="Add Employee" class="add-employee-button">
             </form>
         </div>
@@ -152,16 +154,28 @@
             nameErrorDiv.innerHTML = "";
             empIdErrorDiv.innerHTML = "";
 
-            if (!nameInput.value.match(/^[A-Za-z\s]+$/)) {
-                nameErrorDiv.innerHTML = "Name should only contain alphabetic characters.";
-                valid = false;
+            if (nameInput.value.trim() === "") {
+            nameErrorDiv.innerHTML = "Please enter a Name.";
+            valid = false;
             }
 
-            if (!empIdInput.value.match(/^\d+$/)) {
-                empIdErrorDiv.innerHTML = "Employee ID should only contain numeric characters.";
-                valid = false;
+            if (empIdInput.value.trim() === "") {
+            empIdErrorDiv.innerHTML = "Please enter a Employee ID.";
+            valid = false;
             }
+            
+            if(valid){
+                if (!nameInput.value.match(/^[A-Za-z\s]+$/)) {
+                    nameErrorDiv.innerHTML = "Name should only contain alphabetic characters.";
+                    valid = false;
+                }
 
+                if (!empIdInput.value.match(/^\d+$/)) {
+                    empIdErrorDiv.innerHTML = "Employee ID should only contain numeric characters.";
+                    valid = false;
+                }
+            }
+            
             return valid;
         }
     </script>
