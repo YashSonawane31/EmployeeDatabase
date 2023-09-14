@@ -20,7 +20,7 @@ else:
     POSTGRES_DB = os.environ['POSTGRES_DB_PROD']
     POSTGRES_USER = os.environ['POSTGRES_USER_PROD']
     POSTGRES_PASSWORD = os.environ['POSTGRES_PASSWORD_PROD']
-    POSTGRES_PORT = int(os.environ.get('POSTGRES_PORT_PROD', 5432))
+    POSTGRES_PORT = int(os.environ.get('POSTGRES_PORT_PROD'))
     DEBUG = False
 
 conn = None
