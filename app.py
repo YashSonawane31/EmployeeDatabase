@@ -1,14 +1,31 @@
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2.extras
 import psycopg2
+import os
 
 app = Flask(__name__)
 
-POSTGRES_HOST = 'postgres-flask-db.postgres.database.azure.com'
-POSTGRES_DB = 'postgres'
-POSTGRES_USER = 'demodomain'
-POSTGRES_PASSWORD = 'World&147'
-POSTGRES_PORT = 5432
+environment = os.environ.get('FLASK_ENV', default='development')
+
+if 'AZURE_PRODUCTION' in os.environ:
+    environment = 'production'
+
+if environment == 'development':
+    POSTGRES_HOST = 'localhost'
+    POSTGRES_DB = 'Demo'
+    POSTGRES_USER = 'postgres'
+    POSTGRES_PASSWORD = 'World&147'
+    POSTGRES_PORT = 5432
+    DEBUG = True
+
+else:
+    POSTGRES_HOST = os.environ['POSTGRES_HOST_PROD']
+    POSTGRES_DB = os.environ['POSTGRES_DB_PROD']
+    POSTGRES_USER = os.environ['POSTGRES_USER_PROD']
+    POSTGRES_PASSWORD = os.environ['POSTGRES_PASSWORD_PROD']
+    POSTGRES_PORT = int(os.environ.get('POSTGRES_PORT_PROD', 5432))
+    DEBUG = False
+
 conn = None
 cur = None
 
