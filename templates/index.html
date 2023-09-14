@@ -53,8 +53,8 @@
             background-color: #fff;
             color: #333;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 5px;
+            margin-bottom: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
@@ -85,11 +85,11 @@
         }
         .table-header {
             font-size: 24px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             text-align: center;
         }
         .error-message {
-            color: red;
+            color: rgb(0, 0, 0);
             text-align: left;
             margin-bottom: 10px;
         }
@@ -166,12 +166,12 @@
             
             if(valid){
                 if (!nameInput.value.match(/^[A-Za-z\s]+$/)) {
-                    nameErrorDiv.innerHTML = "Name should only contain alphabetic characters.";
+                    nameErrorDiv.innerHTML = "Enter only alphabetic characters.";
                     valid = false;
                 }
 
                 if (!empIdInput.value.match(/^\d+$/)) {
-                    empIdErrorDiv.innerHTML = "Employee ID should only contain numeric characters.";
+                    empIdErrorDiv.innerHTML = "Enter only numeric characters.";
                     valid = false;
                 }
             }
