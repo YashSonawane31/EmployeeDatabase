@@ -1,9 +1,9 @@
-version: '3'
-services: 
-  postgres:
-    image: postgres
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    ports:
-       - "5000:5000"
+#version: '3'
+#services: 
+#  postgres:
+#    image: postgres
+#   build:
+#     context: .
+#     dockerfile: ./Dockerfile
+#   ports:
+#      - "5000:5000"
