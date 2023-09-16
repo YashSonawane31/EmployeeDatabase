@@ -61,14 +61,15 @@ def get_db_connection():
         password=POSTGRES_PASSWORD,
         port=POSTGRES_PORT)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    conn = get_db_connection()
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cur.execute('SELECT * FROM employee ORDER BY id ASC')
-    employees = cur.fetchall()
-    conn.close()
-    return render_template('index.html', employees=employees)
+    if request.method == 'GET':
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute('SELECT * FROM employee ORDER BY id ASC')
+        employees = cur.fetchall()
+        conn.close()
+        return render_template('index.html', employees=employees)
 
 @app.route('/add_employee', methods=['POST'])
 def add_employee():
@@ -83,17 +84,23 @@ def add_employee():
         cur.execute('INSERT INTO employee (id, name, emp_id) VALUES (%s, %s, %s)', (new_id, name, emp_id))
         conn.commit()
         conn.close()
-    return redirect(url_for('index'))
+        return redirect(url_for('index'))
 
-@app.route('/edit_employee/<int:id>')
+@app.route('/edit_employee/<int:id>', methods=['GET'])
 def edit_employee(id):
-    conn = get_db_connection()
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    cur.execute('SELECT * FROM employee WHERE id = %s', (id,))
-    employee = cur.fetchone()
-    conn.close()
-    return render_template('edit.html', employee=employee)
-
+    if request.method == 'GET':
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute('SELECT * FROM employee WHERE id = %s', (id,))
+        employee = cur.fetchone()
+        cur.execute('SELECT MAX(id) FROM employee')
+        valid_id = cur.fetchone()[0]
+        conn.close()
+        if id <= valid_id:
+            return render_template('edit.html', employee=employee)
+        else:
+            return render_template('id.html')
+            
 @app.route('/save_employee/<int:id>', methods=['POST'])
 def save_employee(id):
     if request.method == 'POST':
@@ -104,17 +111,18 @@ def save_employee(id):
         cur.execute('UPDATE employee SET name = %s, emp_id = %s WHERE id = %s', (name, emp_id, id))
         conn.commit()
         conn.close()
-    return redirect(url_for('index'))
+        return redirect(url_for('index'))
 
-@app.route('/delete_employee/<int:id>')
+@app.route('/delete_employee/<int:id>', methods=['GET'])
 def delete_employee(id):
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute('DELETE FROM employee WHERE id = %s', (id,))
-    cur.execute('UPDATE employee SET id = id - 1 WHERE id > %s', (id,)) 
-    conn.commit()
-    conn.close()
-    return redirect(url_for('index'))
+    if request.method == 'GET':
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('DELETE FROM employee WHERE id = %s', (id,))
+        cur.execute('UPDATE employee SET id = id - 1 WHERE id > %s', (id,)) 
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run()
