@@ -2,11 +2,37 @@
 <html>
 <head>
     <title>Employee Update</title>
+    <style>
+        .error-box {
+            display: none;
+            width: 300px;
+            padding: 20px;
+            background-color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 100px auto;
+            color: #7CFC00;
+            border-radius: 10px;
+            box-shadow: 0 0 5px black;
+        }
+    </style>
 </head>
 <body>
+    <div class="error-box" id="custom-error-box">
+        Employee doesn't exist to update!
+    </div>
+
     <script>
-        alert("This employee does not exist to update");
-        window.location.href = "{{ url_for('index')}}"
+        setTimeout(function() {
+            var errorBox = document.getElementById('custom-error-box');
+            errorBox.style.display = 'block';
+
+            setTimeout(function() {
+                window.location.href = "{{ url_for('index')}}";
+            }, 3000);
+        }, 0);
     </script>
 </body>
 </html>

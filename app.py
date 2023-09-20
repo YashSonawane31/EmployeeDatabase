@@ -96,7 +96,7 @@ def edit_employee(id):
         cur.execute('SELECT MAX(id) FROM employee')
         valid_id = cur.fetchone()[0]
         conn.close()
-        if id <= valid_id:
+        if id <= valid_id and id!=0:
             return render_template('edit.html', employee=employee)
         else:
             return render_template('error.html')
