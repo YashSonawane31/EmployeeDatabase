@@ -90,26 +90,28 @@
             nameErrorDiv.innerHTML = "";
             empIdErrorDiv.innerHTML = "";
 
-            if (nameInput.value.trim() === "") {
-            nameErrorDiv.innerHTML = "Please enter a Name.";
-            valid = false;
+            var nameValue = nameInput.value.trim();
+            if (nameValue === "") {
+                nameErrorDiv.innerHTML = "Please enter a Name.";
+                valid = false;
+            } else if (nameValue.length > 40) {
+                nameErrorDiv.innerHTML = "Name must be 40 characters or less.";
+                valid = false;
+            } if (!nameValue.match(/^[A-Za-z\s]+$/)) {
+                nameErrorDiv.innerHTML = "Enter only alphabetic characters.";
+                valid = false;
             }
 
-            if (empIdInput.value.trim() === "") {
-            empIdErrorDiv.innerHTML = "Please enter a Employee ID.";
-            valid = false;
-            }
-            
-            if(valid){
-                if (!nameInput.value.match(/^[A-Za-z\s]+$/)) {
-                    nameErrorDiv.innerHTML = "Enter only alphabetic characters.";
-                    valid = false;
-                }
-
-                if (!empIdInput.value.match(/^\d+$/)) {
-                    empIdErrorDiv.innerHTML = "Enter only numeric characters.";
-                    valid = false;
-                }
+            var empIdValue = empIdInput.value.trim();
+            if (empIdValue === "") {
+                empIdErrorDiv.innerHTML = "Please enter an Employee ID.";
+                valid = false;
+            } else if (empIdValue.length !== 6) {
+                empIdErrorDiv.innerHTML = "Employee ID must be 6 numeric characters.";
+                valid = false;
+            } if (!empIdInput.value.match(/^\d+$/)) {
+                empIdErrorDiv.innerHTML = "Enter only numeric characters.";
+                valid = false;
             }
 
             return valid;
