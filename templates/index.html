@@ -158,7 +158,7 @@
             if (nameValue === "") {
                 nameErrorDiv.innerHTML = "Please enter a Name.";
                 valid = false;
-            } else if (nameValue.length > 40) {
+            } if (nameValue.length > 40) {
                 nameErrorDiv.innerHTML = "Name must be 40 characters or less.";
                 valid = false;
             } if (!nameValue.match(/^[A-Za-z\s]+$/)) {
@@ -170,7 +170,7 @@
             if (empIdValue === "") {
                 empIdErrorDiv.innerHTML = "Please enter an Employee ID.";
                 valid = false;
-            } else if (empIdValue.length !== 6) {
+            } if (empIdValue.length !== 6) {
                 empIdErrorDiv.innerHTML = "Employee ID must be 6 numeric characters.";
                 valid = false;
             } if (!empIdInput.value.match(/^\d+$/)) {
