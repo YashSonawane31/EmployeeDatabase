@@ -99,8 +99,8 @@ def edit_employee(id):
         if id <= valid_id:
             return render_template('edit.html', employee=employee)
         else:
-            return redirect(url_for('index'))
-            
+            return render_template('id.html')
+
 @app.route('/save_employee/<int:id>', methods=['POST'])
 def save_employee(id):
     if request.method == 'POST':
