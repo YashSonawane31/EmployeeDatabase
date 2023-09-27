@@ -126,4 +126,3 @@ def delete_employee(id):
 
 if __name__ == '__main__':
     app.run()
-    
