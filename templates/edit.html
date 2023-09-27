@@ -94,8 +94,8 @@
             if (nameValue === "") {
                 nameErrorDiv.innerHTML = "Please enter a Name.";
                 valid = false;
-            } else if (nameValue.length > 40) {
-                nameErrorDiv.innerHTML = "Name must be 40 characters or less.";
+            } else if (nameValue.length > 60) {
+                nameErrorDiv.innerHTML = "Name must be 60 characters or less.";
                 valid = false;
             } else if (!nameValue.match(/^[A-Za-z\s]+$/)) {
                 nameErrorDiv.innerHTML = "Enter only alphabetic characters.";
