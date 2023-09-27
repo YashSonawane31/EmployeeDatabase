@@ -1,0 +1,50 @@
+name: Trigger auto deployment for pythonapp
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '//**'
+    - '.github/workflows/pythonapp-AutoDeployTrigger-96328221-f812-4993-8709-f45acb82188b.yml'
+    - 'templates/edit.html'
+    - 'templates/error.html'
+    - 'templates/index.html'
+    - 'Dockerfile'
+    - 'app.py'
+    - 'requirements.txt'
+    
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.PYTHONAPP_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.PYTHONAPP_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.PYTHONAPP_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: pythonappconreg.azurecr.io
+          registryUsername: ${{ secrets.PYTHONAPP_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.PYTHONAPP_REGISTRY_PASSWORD }}
+          containerAppName: pythonapp
+          resourceGroup: pythonapp-rg
+          imageToBuild: pythonappconreg.azurecr.io/pythonapp:${{ github.sha }}
+          dockerfilePath: Dockerfile
+
