@@ -9,7 +9,7 @@ environment = os.environ.get('FLASK_ENV', default='development')
 
 if environment == 'development':
     POSTGRES_HOST = 'localhost'
-    POSTGRES_DB = 'Demo'
+    POSTGRES_DB = 'postgres'
     POSTGRES_USER = 'postgres'
     POSTGRES_PASSWORD = 'World&147'
     POSTGRES_PORT = 5432
